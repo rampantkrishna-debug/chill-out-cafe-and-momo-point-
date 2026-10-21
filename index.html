@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Chill Out Cafe & Momos Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#f7f2e9;--cream2:#ede6d6;--cream3:#faf7f2;
+  --olive:#3d5a1f;--olive2:#4e7228;--olive3:#2a3d15;
+  --gold:#b8882a;--gold2:#d4a843;--gold3:#8a6520;
+  --dark:#1a1208;--brown:#3b2010;
+  --text:#2c1e0f;--gray:#7a6a55;
+  --shadow:0 8px 40px rgba(26,18,8,0.12);
+  --shadow2:0 2px 16px rgba(26,18,8,0.08);
+}
+body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* TEXTURE */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    repeating-linear-gradient(45deg,rgba(184,136,42,0.03) 0,rgba(184,136,42,0.03) 1px,transparent 0,transparent 50%),
+    repeating-linear-gradient(-45deg,rgba(61,90,31,0.025) 0,rgba(61,90,31,0.025) 1px,transparent 0,transparent 50%);
+  background-size:20px 20px;
+}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;width:100%;z-index:999;
+  background:rgba(26,18,8,0.96);backdrop-filter:blur(16px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 32px;border-bottom:1px solid rgba(184,136,42,0.3);
+  box-shadow:0 2px 30px rgba(0,0,0,0.4)}
+.nav-logo{display:flex;align-items:center;gap:14px;cursor:pointer}
+.nav-logo-img{width:48px;height:48px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;flex-shrink:0}
+.nav-brand{color:#fff}
+.nav-brand h1{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;letter-spacing:0.5px;line-height:1.2}
+.nav-brand span{font-size:0.68rem;color:var(--gold2);letter-spacing:1px;text-transform:uppercase;font-weight:500}
+nav ul{list-style:none;display:flex;gap:4px;align-items:center}
+nav ul a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.75rem;font-weight:500;letter-spacing:0.5px;padding:7px 14px;border-radius:4px;transition:all .25s;text-transform:uppercase}
+nav ul a:hover,nav ul a.active{color:#fff;background:rgba(184,136,42,0.2)}
+.nav-cta{background:var(--gold)!important;color:var(--dark)!important;font-weight:700!important;border-radius:4px!important}
+.cart-pill{display:flex;align-items:center;gap:7px;background:rgba(184,136,42,0.15);border:1px solid rgba(184,136,42,0.4);color:var(--gold2);padding:7px 16px;border-radius:4px;cursor:pointer;font-size:0.78rem;font-weight:600;transition:all .2s}
+.cart-pill:hover{background:var(--gold);color:var(--dark)}
+.cart-count{background:var(--gold);color:var(--dark);border-radius:50%;width:18px;height:18px;font-size:0.65rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+/* ── SECTIONS ── */
+section{min-height:100vh;padding:90px 32px 60px;display:none;position:relative;z-index:1}
+section.active{display:block}
+
+/* ── HERO ── */
+#home{padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#0e0902 0%,#1a1208 35%,#1f1a0a 70%,#111008 100%);
+  min-height:100vh;text-align:center;overflow:hidden;position:relative}
+.hero-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(61,90,31,0.25) 0%,transparent 60%),
+             radial-gradient(ellipse at 70% 30%,rgba(184,136,42,0.2) 0%,transparent 50%);
+  pointer-events:none}
+.hero-pattern{position:absolute;inset:0;pointer-events:none;opacity:0.06;
+  background-image:radial-gradient(circle,var(--gold) 1px,transparent 1px);
+  background-size:30px 30px}
+
+.hero-body{position:relative;z-index:2;max-width:800px;padding:40px 24px}
+.hero-logo-wrap{margin:0 auto 28px;width:130px;height:130px;border-radius:50%;
+  border:3px solid var(--gold);padding:4px;
+  box-shadow:0 0 40px rgba(184,136,42,0.4),0 0 80px rgba(184,136,42,0.15);
+  animation:glow 3s ease-in-out infinite alternate}
+@keyframes glow{from{box-shadow:0 0 30px rgba(184,136,42,0.4),0 0 60px rgba(184,136,42,0.1)}
+  to{box-shadow:0 0 50px rgba(184,136,42,0.6),0 0 100px rgba(184,136,42,0.2)}}
+.hero-logo-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--olive3)}
+
+/* SVG LOGO */
+.logo-svg-wrap{width:100%;height:100%}
+
+.hero-divider{display:flex;align-items:center;gap:12px;justify-content:center;margin:16px 0}
+.hero-divider::before,.hero-divider::after{content:'';flex:1;max-width:80px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.hero-divider::after{background:linear-gradient(to left,transparent,var(--gold))}
+.hero-divider span{color:var(--gold);font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;font-weight:600}
+
+.hero-title{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;color:#fff;line-height:1.05;
+  text-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hero-title em{color:var(--gold2);font-style:normal}
+.hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.6);letter-spacing:1.5px;text-transform:uppercase;margin:14px 0 28px;font-weight:400}
+
+.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);
+  border:1px solid rgba(184,136,42,0.35);color:rgba(255,255,255,0.8);
+  padding:7px 16px;border-radius:2px;font-size:0.72rem;letter-spacing:0.5px;font-weight:500}
+
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:2px;
+  font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  border:none;transition:all .3s;text-decoration:none;font-family:'Montserrat',sans-serif}
+.btn-gold{background:var(--gold);color:var(--dark);
+  box-shadow:0 4px 20px rgba(184,136,42,0.4)}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 30px rgba(184,136,42,0.5)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.4)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+/* Floating food icons */
+.floaters{position:absolute;inset:0;pointer-events:none;z-index:1}
+.floater{position:absolute;font-size:1.8rem;opacity:0.12;animation:float linear infinite}
+@keyframes float{0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+  10%{opacity:0.12}90%{opacity:0.12}100%{transform:translateY(-100px) rotate(360deg);opacity:0}}
+
+/* ── SECTION HEADER ── */
+.s-header{text-align:center;margin-bottom:48px}
+.s-header .eyebrow{font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);
+  font-weight:600;margin-bottom:10px}
+.s-header h2{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:800;color:var(--olive3);line-height:1.1}
+.s-header p{color:var(--gray);margin-top:10px;font-size:0.88rem;font-weight:400}
+.gold-line{display:flex;align-items:center;gap:14px;justify-content:center;margin-top:16px}
+.gold-line::before,.gold-line::after{content:'';flex:1;max-width:60px;height:1.5px;background:var(--gold)}
+.gold-line span{color:var(--gold);font-size:0.8rem}
+
+/* ── MENU ── */
+#menu{background:var(--cream3)}
+.cat-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.cat-btn{padding:9px 22px;border-radius:2px;border:1.5px solid var(--cream2);
+  background:var(--cream3);color:var(--gray);cursor:pointer;font-size:0.75rem;
+  font-weight:600;letter-spacing:0.8px;text-transform:uppercase;transition:all .25s;
+  font-family:'Montserrat',sans-serif}
+.cat-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cat-btn.active{background:var(--olive);border-color:var(--olive);color:#fff}
+
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1050px;margin:0 auto}
+.m-card{background:#fff;border:1px solid var(--cream2);border-radius:2px;overflow:hidden;
+  box-shadow:var(--shadow2);transition:all .3s;
+  animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.m-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--gold2)}
+.m-card img{width:100%;height:175px;object-fit:cover;display:block;transition:transform .4s}
+.m-card:hover img{transform:scale(1.05)}
+.m-card-body{padding:16px}
+.m-veg-row{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.veg-box{width:14px;height:14px;border:1.5px solid;border-radius:2px;display:flex;align-items:center;justify-content:center}
+.veg-box.veg{border-color:#2e7d32}.veg-box.veg::after{content:'';width:7px;height:7px;border-radius:50%;background:#2e7d32}
+.veg-box.nv{border-color:#c62828}.veg-box.nv::after{content:'▲';font-size:6px;color:#c62828;line-height:1}
+.cat-tag{font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700}
+.m-card-body h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--brown);line-height:1.3;margin-bottom:5px}
+.m-card-body p{font-size:0.73rem;color:var(--gray);line-height:1.5;margin-bottom:14px}
+.m-card-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--cream2);padding-top:12px}
+.m-price{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--olive)}
+.m-price span{font-size:0.75rem;font-weight:400;color:var(--gray)}
+.add-btn{background:var(--olive);color:#fff;border:none;padding:7px 16px;border-radius:2px;
+  cursor:pointer;font-size:0.72rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;
+  transition:all .25s;font-family:'Montserrat',sans-serif}
+.add-btn:hover{background:var(--olive2)}
+
+/* ── ORDER ── */
+#order{background:var(--cream)}
+.order-wrap{display:grid;grid-template-columns:1fr 360px;gap:24px;max-width:1050px;margin:0 auto}
+.order-list{background:#fff;border:1px solid var(--cream2);border-radius:2px;padding:24px;box-shadow:var(--shadow2)}
+.o-item{display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--cream2)}
+.o-item:last-child{border:none}
+.o-item img{width:70px;height:70px;border-radius:2px;object-fit:cover}
+.o-name{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;color:var(--brown)}
+.o-desc{font-size:0.72rem;color:var(--gray);margin-top:3px}
+.o-price{font-weight:700;color:var(--olive);font-size:0.95rem;margin-top:4px;font-family:'Playfair Display',serif}
+.qty-row{display:flex;align-items:center;gap:10px}
+.qbtn{width:30px;height:30px;border:1.5px solid var(--olive);background:transparent;color:var(--olive);
+  border-radius:2px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-weight:700;transition:all .2s}
+.qbtn:hover{background:var(--olive);color:#fff}
+.qnum{font-weight:700;min-width:20px;text-align:center;font-size:0.9rem}
+
+/* Cart */
+.cart-box{background:#fff;border:1px solid var(--cream2);border-radius:2px;padding:22px;
+  box-shadow:var(--shadow2);position:sticky;top:85px;max-height:calc(100vh - 110px);overflow-y:auto}
+.cart-box h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--olive3);
+  padding-bottom:12px;border-bottom:2px solid var(--cream2);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px}
+.c-item{display:flex;justify-content:space-between;font-size:0.8rem;padding:8px 0;
+  border-bottom:1px dashed var(--cream2);color:var(--text)}
+.c-item:last-child{border:none}
+.c-total{display:flex;justify-content:space-between;font-family:'Playfair Display',serif;
+  font-size:1.05rem;font-weight:800;margin-top:14px;padding-top:12px;
+  border-top:2px solid var(--cream2);color:var(--olive3)}
+.cform input{width:100%;padding:10px 13px;border:1.5px solid var(--cream2);
+  border-radius:2px;font-size:0.82rem;margin-top:10px;outline:none;
+  font-family:'Montserrat',sans-serif;background:var(--cream3);transition:border .2s}
+.cform input:focus{border-color:var(--olive)}
+.empty-cart{text-align:center;padding:36px 20px;color:var(--gray);font-size:0.82rem}
+.empty-cart .ei{font-size:3rem;display:block;margin-bottom:10px;opacity:0.4}
+.ok-msg{background:#f1f8e9;border:1px solid #c5e1a5;border-radius:2px;
+  padding:14px;text-align:center;color:#33691e;font-size:0.82rem;margin-top:12px;display:none;font-weight:600}
+
+/* ── BOOKING ── */
+#booking{background:var(--cream3)}
+.book-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1000px;margin:0 auto}
+.bform-box{background:#fff;border:1px solid var(--cream2);border-radius:2px;padding:32px;box-shadow:var(--shadow2)}
+.bform-box h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--olive3);margin-bottom:22px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{margin-bottom:15px}
+.fg label{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:6px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 13px;border:1.5px solid var(--cream2);
+  border-radius:2px;font-size:0.82rem;outline:none;font-family:'Montserrat',sans-serif;
+  background:var(--cream3);color:var(--text);transition:border .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--olive)}
+.info-box{background:linear-gradient(145deg,var(--olive3),var(--olive));border-radius:2px;
+  padding:32px;color:#fff;display:flex;flex-direction:column;gap:0}
+.info-box h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--gold2);margin-bottom:22px}
+.irow{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.iico{font-size:1.3rem;margin-top:2px;flex-shrink:0}
+.irow h4{font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold2);font-weight:700;margin-bottom:4px}
+.irow p{font-size:0.8rem;opacity:0.8;line-height:1.6}
+.map-btn{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;
+  background:rgba(255,255,255,0.1);border:1px dashed rgba(255,255,255,0.3);
+  border-radius:2px;padding:16px;cursor:pointer;font-size:0.8rem;
+  color:rgba(255,255,255,0.7);transition:all .2s;margin-top:20px}
+.map-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.gold-divider{height:1px;background:linear-gradient(to right,transparent,rgba(184,136,42,0.5),transparent);margin:16px 0}
+
+/* ── ADMIN ── */
+#admin{background:var(--cream)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1050px;margin:0 auto 28px}
+.stat-box{background:#fff;border:1px solid var(--cream2);border-radius:2px;padding:22px;
+  text-align:center;box-shadow:var(--shadow2);border-top:3px solid var(--gold)}
+.stat-box .sn{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--olive)}
+.stat-box .sl{font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-top:4px;font-weight:600}
+.admin-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1050px;margin:0 auto}
+.admin-box{background:#fff;border:1px solid var(--cream2);border-radius:2px;padding:22px;box-shadow:var(--shadow2)}
+.admin-box h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--olive3);
+  padding-bottom:12px;border-bottom:2px solid var(--cream2);margin-bottom:14px;letter-spacing:0.3px}
+.ar{background:var(--cream3);border:1px solid var(--cream2);border-radius:2px;padding:12px;margin-bottom:8px;font-size:0.79rem}
+.ar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.ar-id{font-weight:800;color:var(--olive3);font-family:'Playfair Display',serif}
+.ar-info{color:var(--gray);font-size:0.75rem;margin:2px 0}
+.ar-price{font-weight:700;color:var(--gold3);font-size:0.85rem;margin-top:4px}
+.tag{padding:2px 10px;border-radius:2px;font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.t-p{background:#fff8e1;color:#f57f17}.t-c{background:#e8f5e9;color:#2e7d32}
+.no-d{text-align:center;padding:28px;color:var(--gray);font-size:0.8rem;font-style:italic}
+
+/* ── ABOUT ── */
+#about{background:var(--olive3);min-height:auto;display:block}
+.about-inner{max-width:900px;margin:0 auto;text-align:center;color:#fff}
+.about-inner h2{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;margin:18px 0}
+.about-inner h2 em{color:var(--gold2);font-style:normal}
+.about-inner p{opacity:0.8;line-height:1.9;font-size:0.88rem;max-width:650px;margin:0 auto 16px}
+.a-imgs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:30px 0}
+.a-imgs img{width:100%;height:120px;object-fit:cover;border-radius:2px;border:1px solid rgba(184,136,42,0.3)}
+.a-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin:28px 0}
+.a-stat .n{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--gold2)}
+.a-stat .l{font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;opacity:0.6;margin-top:2px;font-weight:600}
+.socials{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.soc-btn{padding:10px 24px;border-radius:2px;text-decoration:none;font-size:0.75rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;transition:all .2s;border:1.5px solid transparent}
+.soc-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366);color:#fff}
+.soc-z{background:#e23744;color:#fff}
+.soc-s{background:#fc8019;color:#fff}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);color:rgba(255,255,255,0.4);text-align:center;padding:22px;
+  font-size:0.75rem;letter-spacing:0.5px;border-top:1px solid rgba(184,136,42,0.2)}
+footer span{color:var(--gold)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--olive3);color:#fff;padding:12px 28px;border-radius:2px;
+  font-size:0.8rem;z-index:9999;transition:transform .3s;font-weight:600;
+  border-left:4px solid var(--gold);letter-spacing:0.5px;box-shadow:var(--shadow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:768px){
+  .menu-grid{grid-template-columns:repeat(2,1fr)}
+  .order-wrap,.book-wrap,.admin-cols{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:2rem}
+  .frow{grid-template-columns:1fr}
+  .a-imgs{grid-template-columns:repeat(2,1fr)}
+  nav ul{display:none}
+}
+@media(max-width:480px){.menu-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="show('home',null)">
+    <svg class="nav-logo-img" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="59" fill="#2a3d15" stroke="#b8882a" stroke-width="2"/>
+      <circle cx="60" cy="60" r="54" fill="none" stroke="#b8882a" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <circle cx="60" cy="60" r="46" fill="#3d5a1f"/>
+      <path d="M60 22 Q65 18 70 22 Q65 28 60 26 Q55 28 50 22 Q55 18 60 22Z" fill="#f5f0e8"/>
+      <ellipse cx="60" cy="30" rx="8" ry="5" fill="#ede6d6"/>
+      <text font-family="serif" font-size="8" fill="#f5f0e8" font-weight="bold" text-anchor="middle">
+        <textPath href="#topArc">CHILL OUT CAFE</textPath>
+      </text>
+      <text font-family="serif" font-size="8" fill="#f5f0e8" font-weight="bold" text-anchor="middle">
+        <textPath href="#botArc">&amp; MOMOS POINT</textPath>
+      </text>
+      <defs>
+        <path id="topArc" d="M20,60 A40,40 0 0,1 100,60"/>
+        <path id="botArc" d="M18,65 A44,44 0 0,0 102,65"/>
+      </defs>
+      <text font-family="Georgia,serif" font-size="18" fill="#f5f0e8" font-weight="bold" text-anchor="middle" x="60" y="62">Cafe</text>
+      <text font-family="Georgia,serif" font-size="9" fill="#b8882a" text-anchor="middle" x="60" y="74">&amp;</text>
+      <circle cx="85" cy="68" r="9" fill="#c8922a"/>
+      <circle cx="85" cy="68" r="6" fill="#e8651a"/>
+      <circle cx="83" cy="67" r="1.5" fill="#c62828"/>
+      <circle cx="87" cy="69" r="1.5" fill="#c62828"/>
+      <circle cx="85" cy="65" r="1.5" fill="#c62828"/>
+    </svg>
+    <div class="nav-brand"><h1>Chill Out Cafe</h1><span>& Momos Point · Buxar</span></div>
+  </div>
+  <ul>
+    <li><a href="#" class="active" onclick="show('home',this);return false">Home</a></li>
+    <li><a href="#" onclick="show('menu',this);return false">Menu</a></li>
+    <li><a href="#" class="nav-cta" onclick="show('order',this);return false">Order Now</a></li>
+    <li><a href="#" onclick="show('booking',this);return false">Booking</a></li>
+    <li><a href="#" onclick="show('about',this);return false">About</a></li>
+    <li><a href="#" onclick="show('admin',this);return false">Admin</a></li>
+  </ul>
+  <div class="cart-pill" onclick="show('order',null)">🛒 Cart <span class="cart-count" id="cartBadge">0</span></div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<!-- HOME -->
+<section id="home" class="active" style="padding:0;display:flex">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="floaters" id="floaters"></div>
+  <div class="hero-body">
+    <div class="hero-logo-wrap">
+      <div class="hero-logo-inner">
+        <svg class="logo-svg-wrap" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="99" fill="#1a2a0a" stroke="#b8882a" stroke-width="3"/>
+          <circle cx="100" cy="100" r="90" fill="#ede6d6" stroke="#b8882a" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="76" fill="#3d5a1f" stroke="#2a3d15" stroke-width="1"/>
+          <!-- Momo top -->
+          <ellipse cx="100" cy="34" rx="13" ry="9" fill="#f5f0e8"/>
+          <path d="M87 34 Q100 24 113 34 Q100 44 87 34Z" fill="#ede6d6"/>
+          <path d="M91 33 Q100 27 109 33" stroke="#b8882a" stroke-width="1" fill="none"/>
+          <!-- Wheat left -->
+          <g transform="translate(28,90) rotate(-30)">
+            <line x1="0" y1="0" x2="0" y2="-28" stroke="#8a2030" stroke-width="2"/>
+            <ellipse cx="-4" cy="-8" rx="4" ry="7" fill="#8a2030" transform="rotate(-30,-4,-8)"/>
+            <ellipse cx="4" cy="-14" rx="4" ry="7" fill="#8a2030" transform="rotate(30,4,-14)"/>
+            <ellipse cx="-4" cy="-20" rx="3" ry="5" fill="#8a2030" transform="rotate(-20,-4,-20)"/>
+          </g>
+          <!-- Wheat right -->
+          <g transform="translate(172,90) rotate(30)">
+            <line x1="0" y1="0" x2="0" y2="-28" stroke="#8a2030" stroke-width="2"/>
+            <ellipse cx="4" cy="-8" rx="4" ry="7" fill="#8a2030" transform="rotate(30,4,-8)"/>
+            <ellipse cx="-4" cy="-14" rx="4" ry="7" fill="#8a2030" transform="rotate(-30,-4,-14)"/>
+            <ellipse cx="4" cy="-20" rx="3" ry="5" fill="#8a2030" transform="rotate(20,4,-20)"/>
+          </g>
+          <!-- Pizza bottom left -->
+          <circle cx="72" cy="138" r="16" fill="#d4a843"/>
+          <circle cx="72" cy="138" r="13" fill="#e8651a"/>
+          <circle cx="69" cy="135" r="2.5" fill="#c62828"/><circle cx="75" cy="141" r="2.5" fill="#c62828"/><circle cx="72" cy="133" r="2" fill="#c62828"/>
+          <!-- Pizza bottom right -->
+          <circle cx="128" cy="138" r="16" fill="#d4a843"/>
+          <circle cx="128" cy="138" r="13" fill="#e8651a"/>
+          <circle cx="125" cy="135" r="2.5" fill="#c62828"/><circle cx="131" cy="141" r="2.5" fill="#c62828"/><circle cx="128" cy="133" r="2" fill="#c62828"/>
+          <!-- Cafe text -->
+          <text font-family="Georgia,serif" font-size="32" fill="#f5f0e8" font-weight="bold" text-anchor="middle" x="100" y="105">Cafe</text>
+          <text font-family="Georgia,serif" font-size="13" fill="#b8882a" text-anchor="middle" x="100" y="122">&amp;</text>
+          <!-- Arc texts -->
+          <defs>
+            <path id="tA" d="M30,100 A70,70 0 0,1 170,100"/>
+            <path id="bA" d="M26,108 A76,76 0 0,0 174,108"/>
+          </defs>
+          <text font-family="Arial" font-size="13" fill="#2a3d15" font-weight="bold" letter-spacing="2">
+            <textPath href="#tA" startOffset="8%">CHILL OUT CAFE</textPath>
+          </text>
+          <text font-family="Arial" font-size="13" fill="#2a3d15" font-weight="bold" letter-spacing="1">
+            <textPath href="#bA" startOffset="5%">&amp; MOMOS POINT</textPath>
+          </text>
+          <!-- Inner ring -->
+          <circle cx="100" cy="100" r="76" fill="none" stroke="#b8882a" stroke-width="1"/>
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#8a6520" stroke-width="0.5" stroke-dasharray="4,4"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-divider"><span>✦ Est. Buxar ✦</span></div>
+    <h1 class="hero-title">Chill Out Cafe<br><em>& Momos Point</em></h1>
+    <p class="hero-sub">Buxar's Favourite Destination for Momos, Indo-Chinese & More</p>
+    <div class="hero-pills">
+      <span class="pill">📍 Buxar, Bihar</span>
+      <span class="pill">⏰ 11 AM – 10:30 PM</span>
+      <span class="pill">⭐ 4.2 Zomato</span>
+      <span class="pill">🥟 Momos Specialist</span>
+      <span class="pill">🍕 Kulhad Pizza</span>
+    </div>
+    <div class="hero-btns">
+      <button class="btn btn-gold" onclick="show('order',null)">🛒 Order Now</button>
+      <button class="btn btn-outline" onclick="show('menu',null)">📋 View Menu</button>
+      <button class="btn btn-outline" onclick="show('booking',null)">📅 Reserve Table</button>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="s-header">
+    <div class="eyebrow">✦ What We Serve ✦</div>
+    <h2>Our Menu</h2>
+    <p>Freshly made with the finest ingredients & maximum flavour</p>
+    <div class="gold-line"><span>◆</span></div>
+  </div>
+  <div class="cat-bar" id="catBar"></div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- ORDER -->
+<section id="order">
+  <div class="s-header">
+    <div class="eyebrow">✦ Place Your Order ✦</div>
+    <h2>Order Online</h2>
+    <p>Pick your favourites and we'll get it ready for you</p>
+    <div class="gold-line"><span>◆</span></div>
+  </div>
+  <div class="order-wrap">
+    <div class="order-list" id="orderList"></div>
+    <div class="cart-box">
+      <h3>🛒 Your Cart</h3>
+      <div id="cartContent"><div class="empty-cart"><span class="ei">🛒</span>Your cart is empty.<br>Add items to get started.</div></div>
+      <div id="cartBottom" style="display:none">
+        <div class="c-total"><span>Total</span><span id="cartTotal">₹0</span></div>
+        <div class="cform">
+          <input id="cName" type="text" placeholder="Your Name *"/>
+          <input id="cPhone" type="tel" placeholder="Phone Number *"/>
+          <input id="cAddr" type="text" placeholder="Delivery Address (optional)"/>
+          <button class="btn btn-gold" style="width:100%;margin-top:12px;justify-content:center" onclick="placeOrder()">✅ Confirm Order</button>
+        </div>
+        <div class="ok-msg" id="orderOk">🎉 Order placed! We'll confirm shortly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="s-header">
+    <div class="eyebrow">✦ Reserve Your Spot ✦</div>
+    <h2>Table Booking</h2>
+    <p>Secure your cozy corner before you arrive</p>
+    <div class="gold-line"><span>◆</span></div>
+  </div>
+  <div class="book-wrap">
+    <div class="bform-box">
+      <h3>📋 Reservation Details</h3>
+      <div class="frow">
+        <div class="fg"><label>Full Name *</label><input id="bN" type="text" placeholder="Your name"/></div>
+        <div class="fg"><label>Phone *</label><input id="bP" type="tel" placeholder="Mobile"/></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Date *</label><input id="bD" type="date"/></div>
+        <div class="fg"><label>Time *</label>
+          <select id="bT"><option value="">Select time</option>
+            <option>11:00 AM</option><option>11:30 AM</option><option>12:00 PM</option>
+            <option>12:30 PM</option><option>01:00 PM</option><option>02:00 PM</option>
+            <option>03:00 PM</option><option>04:00 PM</option><option>05:00 PM</option>
+            <option>06:00 PM</option><option>07:00 PM</option><option>08:00 PM</option>
+            <option>09:00 PM</option><option>09:30 PM</option><option>10:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Guests *</label>
+          <select id="bG"><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option>
+            <option>4 Guests</option><option>5 Guests</option><option>6+ Guests</option></select>
+        </div>
+        <div class="fg"><label>Seating</label>
+          <select id="bS"><option>Indoor</option><option>Outdoor</option><option>No preference</option></select>
+        </div>
+      </div>
+      <div class="fg"><label>Special Requests</label>
+        <textarea id="bR" rows="3" placeholder="Any dietary needs, celebrations, or preferences?"></textarea>
+      </div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="bookTable()">📅 Confirm Reservation</button>
+      <div class="ok-msg" id="bookOk" style="margin-top:12px">🎉 Reserved! We'll confirm via call.</div>
+    </div>
+    <div class="info-box">
+      <h3>Find Us</h3>
+      <div class="irow"><div class="iico">📍</div>
+        <div><h4>Address</h4><p>Buxar Locality<br>Buxar, Bihar – 802101</p></div>
+      </div>
+      <div class="gold-divider"></div>
+      <div class="irow"><div class="iico">⏰</div>
+        <div><h4>Hours</h4><p>Monday – Sunday<br>11:00 AM – 10:30 PM</p></div>
+      </div>
+      <div class="gold-divider"></div>
+      <div class="irow"><div class="iico">📞</div>
+        <div><h4>Contact</h4><p>Instagram: @coc_buxar<br>Available on WhatsApp</p></div>
+      </div>
+      <div class="gold-divider"></div>
+      <div class="irow"><div class="iico">🍽️</div>
+        <div><h4>Also Order On</h4><p>Zomato · Swiggy</p></div>
+      </div>
+      <div class="map-btn" onclick="window.open('https://maps.google.com?q=Chill+Out+Cafe+Momos+Point+Buxar+Bihar','_blank')">
+        🗺️ Open in Google Maps →
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="min-height:auto;padding:90px 32px 60px">
+  <div class="about-inner">
+    <div class="gold-line" style="margin-bottom:16px"><span>◆</span></div>
+    <h2>About <em>Chill Out Cafe</em></h2>
+    <p>Welcome to Chill Out Cafe & Momos Point — Buxar's favourite hangout. We pour our heart into every momo, every pizza, and every cup of chai. From steaming hot dumplings to sizzling Indo-Chinese, we serve joy on a plate.</p>
+    <p>Whether you're a student grabbing a quick bite or a family celebrating a special moment, our cozy cafe in Buxar is your home away from home. Come as you are. Stay as long as you like. 🤍</p>
+    <div class="a-imgs">
+      <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80" alt="Momos"/>
+      <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80" alt="Rice"/>
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80" alt="Pizza"/>
+      <img src="https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=400&q=80" alt="Chai"/>
+    </div>
+    <div class="a-stats">
+      <div class="a-stat"><div class="n">50+</div><div class="l">Menu Items</div></div>
+      <div class="a-stat"><div class="n">4.2★</div><div class="l">Zomato</div></div>
+      <div class="a-stat"><div class="n">1000+</div><div class="l">Happy Guests</div></div>
+      <div class="a-stat"><div class="n">Daily</div><div class="l">Fresh Kitchen</div></div>
+    </div>
+    <div class="socials">
+      <a href="https://www.instagram.com/coc_buxar/" target="_blank" class="soc-btn soc-ig">📸 @coc_buxar</a>
+      <a href="https://www.zomato.com/buxar/chill-out-cafe-and-momos-point-buxar-locality/order" target="_blank" class="soc-btn soc-z">🍽️ Zomato</a>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin">
+  <div class="s-header">
+    <div class="eyebrow">✦ Owner Dashboard ✦</div>
+    <h2>Admin Panel</h2>
+    <p>Track orders and reservations in real time</p>
+    <div class="gold-line"><span>◆</span></div>
+  </div>
+  <div class="stats">
+    <div class="stat-box"><div class="sn" id="sO">0</div><div class="sl">📦 Orders</div></div>
+    <div class="stat-box"><div class="sn" id="sB">0</div><div class="sl">📅 Bookings</div></div>
+    <div class="stat-box"><div class="sn" id="sR">₹0</div><div class="sl">💰 Revenue</div></div>
+    <div class="stat-box"><div class="sn" id="sI">0</div><div class="sl">🍽️ Items Sold</div></div>
+  </div>
+  <div class="admin-cols">
+    <div class="admin-box"><h3>📦 Recent Orders</h3><div id="aOrders"><div class="no-d">No orders yet.</div></div></div>
+    <div class="admin-box"><h3>📅 Reservations</h3><div id="aBooks"><div class="no-d">No reservations yet.</div></div></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Chill Out Cafe & Momos Point</span> · Buxar, Bihar · Crafted with ❤️ &nbsp;|&nbsp; Instagram: <span>@coc_buxar</span></p>
+</footer>
+
+<script>
+// ── DATA ──
+const menu=[
+  {id:1,cat:'Momos',name:'Steamed Veg Momos',desc:'Classic soft steamed veg dumplings with spicy red chutney',price:60,veg:true,img:'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'},
+  {id:2,cat:'Momos',name:'Fried Veg Momos',desc:'Crispy golden fried momos — street food at its best',price:70,veg:true,img:'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'},
+  {id:3,cat:'Momos',name:'Malai Veg Momos',desc:'Rich creamy malai-coated momos in velvety sauce',price:90,veg:true,img:'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'},
+  {id:4,cat:'Momos',name:'Paneer Kurkure Momos',desc:'Crunchy paneer-stuffed momos with tangy dipping sauce',price:100,veg:true,img:'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'},
+  {id:5,cat:'Momos',name:'Paneer Gravy Momos',desc:'Soft momos dunked in rich spiced paneer gravy',price:110,veg:true,img:'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'},
+  {id:6,cat:'Momos',name:'Chicken Steamed Momos',desc:'Juicy chicken-filled dumplings steamed to perfection',price:90,veg:false,img:'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'},
+  {id:7,cat:'Momos',name:'Chicken Fried Momos',desc:'Savory Indo-Tibetan fried chicken dumplings',price:100,veg:false,img:'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80'},
+  {id:8,cat:'Chinese',name:'Veg Fried Rice',desc:'Wok-tossed rice with fresh veggies & soy sauce',price:100,veg:true,img:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80'},
+  {id:9,cat:'Chinese',name:'Paneer Chilli',desc:'Crispy paneer cubes in spicy Indo-Chinese sauce',price:120,veg:true,img:'https://images.unsplash.com/photo-1607532941433-304659e8198a?w=400&q=80'},
+  {id:10,cat:'Chinese',name:'Veg Manchurian',desc:'Fried veg balls in tangy Manchurian gravy',price:110,veg:true,img:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80'},
+  {id:11,cat:'Chinese',name:'Mixed Noodles',desc:'Stir-fried noodles loaded with veggies & sauces',price:100,veg:true,img:'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&q=80'},
+  {id:12,cat:'Chinese',name:'Mushroom Chilli',desc:'Crispy mushrooms tossed in spicy Chinese sauce',price:130,veg:true,img:'https://images.unsplash.com/photo-1607532941433-304659e8198a?w=400&q=80'},
+  {id:13,cat:'Indian',name:'Paneer Butter Masala',desc:'Creamy rich north Indian paneer curry',price:160,veg:true,img:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80'},
+  {id:14,cat:'Indian',name:'Mushroom Butter Masala',desc:'Juicy mushrooms in buttery tomato gravy',price:150,veg:true,img:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80'},
+  {id:15,cat:'Indian',name:'Malai Kofta',desc:'Melt-in-mouth kofta balls in creamy Mughlai gravy',price:160,veg:true,img:'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80'},
+  {id:16,cat:'Pizza',name:'Classic Kulhad Pizza',desc:'Exotic pizza baked in a desi kulhad — loaded with cheese!',price:130,veg:true,img:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80'},
+  {id:17,cat:'Pizza',name:'Paneer Kulhad Pizza',desc:'Kulhad pizza topped with spiced paneer & cheese',price:150,veg:true,img:'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80'},
+  {id:18,cat:'Beverages',name:'Masala Chai',desc:'Aromatic spiced Indian tea — the soul warmer',price:30,veg:true,img:'https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=400&q=80'},
+  {id:19,cat:'Beverages',name:'Cold Coffee',desc:'Chilled blended coffee with whipped cream',price:70,veg:true,img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80'},
+  {id:20,cat:'Beverages',name:'Mango Shake',desc:'Thick creamy mango milkshake made fresh daily',price:80,veg:true,img:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80'},
+  {id:21,cat:'Beverages',name:'Lemon Soda',desc:'Refreshing fizzy lemon soda with mint',price:40,veg:true,img:'https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=400&q=80'},
+];
+
+const cats=['All',...[...new Set(menu.map(i=>i.cat))]];
+let activecat='All',cart={},orders=[],bookings=[];
+
+// Floaters
+const foodEmojis=['🥟','🍕','☕','🍜','🧋','🫗','🥗','🍛','🧆','🫔'];
+const fl=document.getElementById('floaters');
+for(let i=0;i<18;i++){
+  const d=document.createElement('div');d.className='floater';
+  d.textContent=foodEmojis[i%foodEmojis.length];
+  d.style.cssText=`left:${Math.random()*100}%;animation-duration:${8+Math.random()*12}s;animation-delay:${-Math.random()*15}s;font-size:${1.2+Math.random()*1.5}rem`;
+  fl.appendChild(d);
+}
+
+// Nav
+function show(id,el){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav ul a').forEach(a=>a.classList.remove('active'));
+  if(el)el.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='admin')renderAdmin();
+  if(id==='order')renderOrderList();
+}
+
+// Menu
+function renderMenu(){
+  const bar=document.getElementById('catBar');
+  bar.innerHTML=cats.map(c=>`<button class="cat-btn ${c===activecat?'active':''}" onclick="filterCat('${c}')">${c}</button>`).join('');
+  const items=activecat==='All'?menu:menu.filter(i=>i.cat===activecat);
+  document.getElementById('menuGrid').innerHTML=items.map((item,idx)=>`
+    <div class="m-card" style="animation-delay:${idx*0.07}s">
+      <img src="${item.img}" alt="${item.name}" loading="lazy"/>
+      <div class="m-card-body">
+        <div class="m-veg-row"><div class="veg-box ${item.veg?'veg':'nv'}"></div><span class="cat-tag">${item.cat}</span></div>
+        <h3>${item.name}</h3>
+        <p>${item.desc}</p>
+        <div class="m-card-foot">
+          <div class="m-price">₹${item.price} <span>/ plate</span></div>
+          <button class="add-btn" onclick="addCart(${item.id})">+ Add</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function filterCat(c){activecat=c;renderMenu();}
+
+// Order list
+function renderOrderList(){
+  document.getElementById('orderList').innerHTML=
+    `<h3 style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--olive3);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--cream2)">Select Items</h3>`+
+    menu.map(item=>`
+    <div class="o-item">
+      <img src="${item.img}" alt="${item.name}" loading="lazy"/>
+      <div>
+        <div class="o-name"><span class="veg-box ${item.veg?'veg':'nv'}" style="display:inline-flex;margin-right:6px;vertical-align:middle"></span>${item.name}</div>
+        <div class="o-desc">${item.desc}</div>
+        <div class="o-price">₹${item.price}</div>
+      </div>
+      <div class="qty-row">
+        <button class="qbtn" onclick="chgQty(${item.id},-1)">−</button>
+        <span class="qnum" id="q${item.id}">${cart[item.id]||0}</span>
+        <button class="qbtn" onclick="chgQty(${item.id},1)">+</button>
+      </div>
+    </div>`).join('');
+}
+
+// Cart
+function addCart(id){chgQty(id,1);toast('Added to cart ✓');}
+function chgQty(id,d){
+  cart[id]=Math.max(0,(cart[id]||0)+d);
+  if(!cart[id])delete cart[id];
+  const el=document.getElementById('q'+id);if(el)el.textContent=cart[id]||0;
+  updateCart();
+}
+function updateCart(){
+  const keys=Object.keys(cart);
+  document.getElementById('cartBadge').textContent=keys.reduce((a,k)=>a+cart[k],0);
+  const cc=document.getElementById('cartContent'),cb=document.getElementById('cartBottom');
+  if(!keys.length){cc.innerHTML='<div class="empty-cart"><span class="ei">🛒</span>Your cart is empty.<br>Add items to get started.</div>';cb.style.display='none';return;}
+  let total=0;
+  cc.innerHTML=keys.map(k=>{const it=menu.find(i=>i.id==k),sub=it.price*cart[k];total+=sub;
+    return`<div class="c-item"><span>${it.name} ×${cart[k]}</span><span>₹${sub}</span></div>`;}).join('');
+  document.getElementById('cartTotal').textContent='₹'+total;
+  cb.style.display='block';document.getElementById('orderOk').style.display='none';
+}
+
+// Place order
+function placeOrder(){
+  const n=document.getElementById('cName').value.trim(),p=document.getElementById('cPhone').value.trim();
+  if(!n||!p){toast('Enter name & phone!');return;}
+  if(!Object.keys(cart).length){toast('Cart is empty!');return;}
+  const total=Object.keys(cart).reduce((a,k)=>a+menu.find(i=>i.id==k).price*cart[k],0);
+  const items=Object.keys(cart).map(k=>`${menu.find(i=>i.id==k).name} ×${cart[k]}`).join(', ');
+  const sold=Object.values(cart).reduce((a,v)=>a+v,0);
+  orders.push({id:'#'+String(orders.length+1).padStart(3,'0'),name:n,phone:p,items,total,sold,time:new Date().toLocaleTimeString(),status:'Pending'});
+  cart={};updateCart();renderOrderList();
+  ['cName','cPhone','cAddr'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('orderOk').style.display='block';
+  toast('🎉 Order placed!');
+}
+
+// Booking
+function bookTable(){
+  const n=document.getElementById('bN').value.trim(),p=document.getElementById('bP').value.trim(),
+    d=document.getElementById('bD').value,t=document.getElementById('bT').value,
+    g=document.getElementById('bG').value;
+  if(!n||!p||!d||!t){toast('Fill all required fields!');return;}
+  bookings.push({id:'#B'+String(bookings.length+1).padStart(3,'0'),name:n,phone:p,date:d,time:t,guests:g,status:'Confirmed'});
+  ['bN','bP','bD','bR'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('bT').value='';
+  document.getElementById('bookOk').style.display='block';
+  toast('📅 Table reserved!');
+}
+
+// Admin
+function renderAdmin(){
+  document.getElementById('sO').textContent=orders.length;
+  document.getElementById('sB').textContent=bookings.length;
+  document.getElementById('sR').textContent='₹'+orders.reduce((a,o)=>a+o.total,0);
+  document.getElementById('sI').textContent=orders.reduce((a,o)=>a+o.sold,0);
+  const ao=document.getElementById('aOrders');
+  ao.innerHTML=orders.length?orders.slice().reverse().map(o=>`
+    <div class="ar">
+      <div class="ar-head"><span class="ar-id">${o.id}</span><span class="tag t-${o.status==='Pending'?'p':'c'}">${o.status}</span></div>
+      <div class="ar-info">${o.name} · ${o.phone}</div>
+      <div class="ar-info" style="font-size:0.72rem">${o.items}</div>
+      <div class="ar-price">₹${o.total} · ${o.time}</div>
+    </div>`).join(''):'<div class="no-d">No orders yet.</div>';
+  const ab=document.getElementById('aBooks');
+  ab.innerHTML=bookings.length?bookings.slice().reverse().map(b=>`
+    <div class="ar">
+      <div class="ar-head"><span class="ar-id">${b.id}</span><span class="tag t-c">${b.status}</span></div>
+      <div class="ar-info">${b.name} · ${b.phone}</div>
+      <div class="ar-info">${b.date} at ${b.time} · ${b.guests}</div>
+    </div>`).join(''):'<div class="no-d">No reservations yet.</div>';
+}
+
+// Toast
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// Init
+renderMenu();
+document.getElementById('bD').min=new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
